@@ -12,9 +12,13 @@
 void Car::move(char direction){
     _prvLoc.x = _loc.x;
     _prvLoc.y = _loc.y;
+    
     switch(direction){
-    case RIGHT_ARROW: _loc.x+=SPEED; break;
-    case LEFT_ARROW: _loc.x-=SPEED; break;
+        //Right Move, with road constraint
+        case RIGHT_ARROW: if(_loc.x < (ROW * 3 /4) - 10) {_loc.x+=SPEED;} break;
+            
+        //Left Move, with road constraint
+        case LEFT_ARROW: if(_loc.x > (ROW / 4) + 10) {_loc.x-=SPEED;}break;
     }
 }
 
