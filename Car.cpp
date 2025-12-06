@@ -7,8 +7,8 @@
 
 #include "Car.h"
 #include "Utils.h"
+#include <algorithm>
 
-//Move
 void Car::move(char direction){
     _prvLoc.x = _loc.x;
     _prvLoc.y = _loc.y;
@@ -17,15 +17,25 @@ void Car::move(char direction){
         //Right Move, with road constraint
         case RIGHT_ARROW:
             if(_loc.x < (ROW * 3 / 4) - _size/2 - 10) {
-                _loc.x += SPEED;
+                _loc.x += _speed;
             }
             break;
             
         //Left Move, with road constraint
         case LEFT_ARROW:
             if(_loc.x > (ROW / 4) + _size/2 + 10) {
-                _loc.x -= SPEED;
+                _loc.x -= _speed;
             }
+            break;
+            
+        //Increase Speed (UP arrow)
+        case UP_ARROW:
+            _speed = std::min(_speed + 1, 15);
+            break;
+            
+        //Decrease Speed (DOWN arrow)
+        case DOWN_ARROW:
+            _speed = std::max(_speed - 1, 2);
             break;
     }
 }
@@ -42,4 +52,8 @@ void Car::draw(SDL_Plotter& g){
     drawRect(_loc.x + _size/2 - whlSize, _loc.y - _size/2, whlSize, whlSize, black, g);
     drawRect(_loc.x - _size/2, _loc.y + _size/2 - whlSize, whlSize, whlSize, black, g);
     drawRect(_loc.x + _size/2 - whlSize, _loc.y + _size/2 - whlSize, whlSize, whlSize, black, g);
+}
+
+void Car::setSpeed(int speed) {
+    _speed = speed;
 }

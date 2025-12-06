@@ -15,19 +15,25 @@ private:
     point _loc, _prvLoc;
     color _color;
     int   _size;
+    int   _speed;
     
 public:
     Car() : _loc{point(ROW / 2, COL - SIZE - 50)},
             _prvLoc{ROW / 2, COL - SIZE - 50},
             _color{color{255, 30, 30}},
-            _size{SIZE} {}
+            _size{SIZE},
+            _speed{5} {}
     
     void move(char direction);
     void draw(SDL_Plotter& g);
     
+    // Speed control
+    void setSpeed(int speed);
+    
     // Getters for collision detection
-    point getLocation() const { return _loc; }
+    point getLoc() const { return _loc; }
     int getSize() const { return _size; }
+    int getSpeed() const { return _speed; }
 };
     
 #endif /* Car_h */
